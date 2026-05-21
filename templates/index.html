@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚦 نظام التعرف على الشاخصات المرورية</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <h1>🚦 نظام التعرف على الشاخصات المرورية</h1>
+            <p class="subtitle">تحت الظروف الجوية الصعبة</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value">99%</div>
+                    <div class="stat-label">الدقة</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">ResNet-50</div>
+                    <div class="stat-label">النموذج</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">14</div>
+                    <div class="stat-label">فئة شاخصة</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">13</div>
+                    <div class="stat-label">ظرف جوي</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(event,'analyzer')">🔍 محلل الصور</button>
+            <button class="tab-btn" onclick="switchTab(event,'performance')">📊 الأداء</button>
+            <button class="tab-btn" onclick="switchTab(event,'weather')">🌦️ الظروف الجوية</button>
+            <button class="tab-btn" onclick="switchTab(event,'about')">ℹ️ عن المشروع</button>
+        </div>
+
+        <!-- Tab 1 -->
+        <div id="analyzer" class="tab-content active">
+
+            <div class="card" style="margin-bottom: 30px;">
+                <h2>🖼️ صور تجريبية — اضغط لتحليل فوري</h2>
+
+                <h3 style="color:#2ecc71; margin: 15px 0 10px;">☀️ Normal</h3>
+                <div class="examples-grid">
+                    <div class="example-item" onclick="loadExample(event,'normal_speed_limit.png','Normal')">
+                        <img src="/static/examples/normal_speed_limit.png" alt="Speed Limit">
+                        <div class="example-label">Speed Limit</div>
+                    </div>
+                    <div class="example-item" onclick="loadExample(event,'normal_goods_vehicles.png','Normal')">
+                        <img src="/static/examples/normal_goods_vehicles.png" alt="Goods Vehicles">
+                        <div class="example-label">Goods Vehicles</div>
+                    </div>
+                    <div class="example-item" onclick="loadExample(event,'normal_no_overtaking.png','Normal')">
+                        <img src="/static/examples/normal_no_overtaking.png" alt="No Overtaking">
+                        <div class="example-label">No Overtaking</div>
+                    </div>
+                </div>
+
+                <h3 style="color:#3498db; margin: 15px 0 10px;">🌧️ Heavy Rain</h3>
+                <div class="examples-grid">
+                    <div class="example-item" onclick="loadExample(event,'rain_speed_limit.png','Rain')">
+                        <img src="/static/examples/rain_speed_limit.png" alt="Speed Limit">
+                        <div class="example-label">Speed Limit</div>
+                    </div>
+                    <div class="example-item" onclick="loadExample(event,'rain_goods_vehicles.png','Rain')">
+                        <img src="/static/examples/rain_goods_vehicles.png" alt="Goods Vehicles">
+                        <div class="example-label">Goods Vehicles</div>
+                    </div>
+                    <div class="example-item" onclick="loadExample(event,'rain_no_overtaking.png','Rain')">
+                        <img src="/static/examples/rain_no_overtaking.png" alt="No Overtaking">
+                        <div class="example-label">No Overtaking</div>
+                    </div>
+                </div>
+
+                <h3 style="color:#95a5a6; margin: 15px 0 10px;">🌫️ Heavy Haze</h3>
+                <div class="examples-grid">
+                    <div class="example-item" onclick="loadExample(event,'haze_speed_limit.png','Haze')">
+                        <img src="/static/examples/haze_speed_limit.png" alt="Speed Limit">
+                        <div class="example-label">Speed Limit</div>
+                    </div>
+                    <div class="example-item" onclick="loadExample(event,'haze_goods_vehicles.png','Haze')">
+                        <img src="/static/examples/haze_goods_vehicles.png" alt="Goods Vehicles">
+                        <div class="example-label">Goods Vehicles</div>
+                    </div>
+                    <div class="example-item" onclick="loadExample(event,'haze_no_overtaking.png','Haze')">
+                        <img src="/static/examples/haze_no_overtaking.png" alt="No Overtaking">
+                        <div class="example-label">No Overtaking</div>
+                    </div>
+                </div>
+
+                <h3 style="color:#9b59b6; margin: 15px 0 10px;">❄️ Heavy Snow</h3>
+                <div class="examples-grid">
+                    <div class="example-item" onclick="loadExample(event,'snow_no_parking.png','Snow')">
+                        <img src="/static/examples/snow_no_parking.png" alt="No Parking">
+                        <div class="example-label">No Parking</div>
+                    </div>
+                    <div class="example-item" onclick="loadExample(event,'snow_parking.png','Snow')">
+                        <img src="/static/examples/snow_parking.png" alt="Parking">
+                        <div class="example-label">Parking</div>
+                    </div>
+                </div>
+
+                <h3 style="color:#e74c3c; margin: 15px 0 10px;">🌑 Heavy Dark</h3>
+                <div class="examples-grid">
+                    <div class="example-item" onclick="loadExample(event,'dark_speed_limit.png','Dark')">
+                        <img src="/static/examples/dark_speed_limit.png" alt="Speed Limit">
+                        <div class="example-label">Speed Limit</div>
+                    </div>
+                    <div class="example-item" onclick="loadExample(event,'dark_goods_vehicles.png','Dark')">
+                        <img src="/static/examples/dark_goods_vehicles.png" alt="Goods Vehicles">
+                        <div class="example-label">Goods Vehicles</div>
+                    </div>
+                    <div class="example-item" onclick="loadExample(event,'dark_no_overtaking.png','Dark')">
+                        <img src="/static/examples/dark_no_overtaking.png" alt="No Overtaking">
+                        <div class="example-label">No Overtaking</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="card">
+                    <h2>📸 رفع الصورة</h2>
+                    <div class="upload-area" id="uploadArea">
+                        <p style="font-size: 3em; margin-bottom: 10px;">📤</p>
+                        <p>اضغط أو اسحب الصورة هنا</p>
+                        <input type="file" id="fileInput" accept="image/*">
+                    </div>
+                    <img id="imagePreview" alt="Preview">
+                    <button id="uploadBtn" disabled>تحليل الصورة</button>
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <p>جاري التحليل...</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>🎯 النتيجة</h2>
+                    <div class="result" id="result">
+                        <div class="prediction-box">
+                            <div class="prediction-name" id="predictionName">-</div>
+                            <div class="confidence" id="confidence">-</div>
+                            <div id="confidenceLevel"></div>
+                        </div>
+                        <h3 style="color: #FF6B35; margin-top: 20px;">احتمالية كل فئة:</h3>
+                        <div class="probability-list" id="probabilityList"></div>
+                    </div>
+                    <div class="error" id="error"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2 -->
+        <div id="performance" class="tab-content">
+            <div class="card">
+                <h2>📊 أداء النموذج على كل ظرف جوي</h2>
+                <table class="performance-table">
+                    <tr>
+                        <th>الظرف الجوي</th>
+                        <th>الدقة</th>
+                        <th>المستوى</th>
+                    </tr>
+                    <tr><td>☀️ Normal</td><td>99.99%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:99.99%"></div></div></td></tr>
+                    <tr><td>🌑 Darkening-1</td><td>99.86%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:99.86%"></div></div></td></tr>
+                    <tr><td>🌑 Darkening-3</td><td>99.62%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:99.62%"></div></div></td></tr>
+                    <tr><td>🌑 Darkening-5</td><td>88.57%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:88.57%"></div></div></td></tr>
+                    <tr><td>🌫️ Haze-1</td><td>100.00%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:100%"></div></div></td></tr>
+                    <tr><td>🌫️ Haze-3</td><td>99.95%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:99.95%"></div></div></td></tr>
+                    <tr><td>🌫️ Haze-5</td><td>97.17%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:97.17%"></div></div></td></tr>
+                    <tr><td>🌧️ Rain-1</td><td>99.89%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:99.89%"></div></div></td></tr>
+                    <tr><td>🌧️ Rain-3</td><td>99.66%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:99.66%"></div></div></td></tr>
+                    <tr><td>🌧️ Rain-5</td><td>98.80%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:98.80%"></div></div></td></tr>
+                    <tr><td>❄️ Snow-1</td><td>99.97%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:99.97%"></div></div></td></tr>
+                    <tr><td>❄️ Snow-3</td><td>99.53%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:99.53%"></div></div></td></tr>
+                    <tr><td>❄️ Snow-5</td><td>98.42%</td><td><div class="accuracy-bar"><div class="accuracy-fill" style="width:98.42%"></div></div></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 3 -->
+        <div id="weather" class="tab-content">
+            <div class="card">
+                <h2>🌦️ الظروف الجوية</h2>
+                <div class="weather-grid">
+                    <div class="weather-card">
+                        <div class="weather-emoji">☀️</div>
+                        <div class="weather-name">Normal</div>
+                        <div class="weather-desc">صور نظيفة بدون تأثير</div>
+                    </div>
+                    <div class="weather-card">
+                        <div class="weather-emoji">🌑</div>
+                        <div class="weather-name">Darkening</div>
+                        <div class="weather-desc">إظلام وإضاءة ليلية</div>
+                    </div>
+                    <div class="weather-card">
+                        <div class="weather-emoji">🌫️</div>
+                        <div class="weather-name">Haze</div>
+                        <div class="weather-desc">ضباب كثيف</div>
+                    </div>
+                    <div class="weather-card">
+                        <div class="weather-emoji">🌧️</div>
+                        <div class="weather-name">Rain</div>
+                        <div class="weather-desc">أمطار</div>
+                    </div>
+                    <div class="weather-card">
+                        <div class="weather-emoji">❄️</div>
+                        <div class="weather-name">Snow</div>
+                        <div class="weather-desc">ثلج</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4 -->
+        <div id="about" class="tab-content">
+            <div class="card">
+                <h2>ℹ️ عن المشروع</h2>
+                <h3 style="color: #FF6B35; margin-top: 20px;">🎯 الهدف</h3>
+                <p style="margin-top: 10px;">بناء نظام ذكي للتعرف على شاخصات المرور في الظروف الجوية الصعبة.</p>
+
+                <h3 style="color: #FF6B35; margin-top: 20px;">📊 البيانات</h3>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>CURE-TSR Dataset</li>
+                    <li>94,974 صورة</li>
+                    <li>14 فئة شاخصة</li>
+                    <li>13 ظرف جوي مختلف</li>
+                </ul>
+
+                <h3 style="color: #FF6B35; margin-top: 20px;">🤖 النموذج</h3>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>ResNet-50 مع Transfer Learning</li>
+                    <li>دقة 99% على الصور النظيفة</li>
+                    <li>أداء قوي تحت جميع الظروف</li>
+                </ul>
+
+                <h3 style="color: #FF6B35; margin-top: 20px;">📈 النتائج المهمة</h3>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>✅ أفضل أداء: Haze-1 (100%)</li>
+                    <li>✅ أداء قوي تحت المطر والثلج (98-99%)</li>
+                    <li>⚠️ أكبر تحدي: Darkening-5 (88.57%)</li>
+                    <li>✅ النموذج مقاوم جداً للظروف الصعبة</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
