@@ -189,7 +189,7 @@ import shutil
 # إنشاء مجلد الصور
 os.makedirs('static/examples', exist_ok=True)
 
-dataset_path = '/content/Real_Train'
+dataset_path = 'static/examples'
 
 # اختيار صورة من كل ظرف جوي
 examples = {
