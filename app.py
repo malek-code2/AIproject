@@ -16,7 +16,7 @@ def example_image(filename):
 # ======================================
 # تحميل النموذج
 # ======================================
-model = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
+model = models.resnet50(weights=None)
 model.fc = nn.Linear(2048, 14)
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = model.to(device)
