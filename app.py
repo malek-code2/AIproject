@@ -200,17 +200,17 @@ examples = {
     'dark':      ('Darkening-5',   'dark.bmp'),
 }
 
-for name, (folder, filename) in examples.items():
-    folder_path = os.path.join(dataset_path, folder)
-    imgs = [f for f in os.listdir(folder_path) if f.endswith('.bmp')]
+# for name, (folder, filename) in examples.items():
+#     folder_path = os.path.join(dataset_path, folder)
+#     imgs = [f for f in os.listdir(folder_path) if f.endswith('.bmp')]
     
-    src = os.path.join(folder_path, imgs[0])
-    dst = f'static/examples/{filename}'
+#     src = os.path.join(folder_path, imgs[0])
+#     dst = f'static/examples/{filename}'
     
-    shutil.copy(src, dst)
-    print(f"✅ {name}: {imgs[0]}")
+#     shutil.copy(src, dst)
+#     print(f"✅ {name}: {imgs[0]}")
 
-print("\n✅ تم حفظ الصور!")
+# print("\n✅ تم حفظ الصور!")
 
 
 
